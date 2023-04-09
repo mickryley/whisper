@@ -52,15 +52,19 @@ for index, row in df.iterrows():
         print("No Transcript Found")
         txt_file = transcribe_audio(link)
         df.at[index, "Transcript"] = txt_file
+        video_title, channel_name = get_video_info(link)
+        df.at[index, "Transcript"] = txt_file
+        df.at[index, "Video_Title"] = video_title
+        df.at[index, "Channel_Name"] = channel_name
     else:
         print("Transcript Found")
         txt_file = row["Transcript"]
-        print(txt_file)
+        ##print(txt_file)
 
-    video_title, channel_name = get_video_info(link)
-    df.at[index, "Transcript"] = txt_file
-    df.at[index, "Video_Title"] = video_title
-    df.at[index, "Channel_Name"] = channel_name
+    
+   
+    df.to_csv("/Users/michaelhenderson/Desktop/YoutubeWhisperTests/YTQueueWorking.csv", index=False)
     print("Row Edited")
+    
 
 df.to_csv("/Users/michaelhenderson/Desktop/YoutubeWhisperTests/YTQueueOut.csv", index=False)
